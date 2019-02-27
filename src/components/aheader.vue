@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div style="text-align: center">
-      中国移动 12:00AM
+
     </div>
     <div class="top-input">
       <input type="text" placeholder="搜索一下">
