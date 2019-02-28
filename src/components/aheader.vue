@@ -1,10 +1,11 @@
 <template>
   <div class="hello">
+    <p class="title-aheader">华升车行</p>
     <div style="text-align: center">
 
     </div>
     <div class="top-input">
-      <input type="text" placeholder="搜索一下">
+      <input type="text" placeholder="搜索商品，共21303款好货">
     </div>
     <!--//轮播图-->
     <div class="lunbotu">
@@ -42,55 +43,47 @@
       </div>
     </div>
     <!--人气推介-->
-    <div style="text-align: center ;background: white ;border-bottom: 1px solid #999;padding: 10px ;margin-top: 10px">
-      人气推介 >
+    <div style="text-align: center ;background: white ;border: 1px solid #bbb;padding: 10px ;margin-top: 10px;color: rgb(85, 85, 85);">
+      人气推荐 >
     </div>
-    <div style="background: white;line-height: 20px;display: flex">
+    <div style="background: white;line-height: 20px;display: flex;border-bottom: 1px solid #bbb">
       <div style="padding: 20px">
         <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2230420930,1248625412&fm=26&gp=0.jpg"
              width="150px" height="150px"/>
       </div>
       <div>
-        <p style="padding-top: 20px">正新轮胎</p>
+        <p style="padding-top: 20px;color: rgb(85, 85, 85)">正新轮胎</p>
         <p style="color: #999">90/90-18真空轮胎摩托车</p>
-        <span style="color: red">￥199</span>
+        <span style="color: #f44">￥199</span>
       </div>
     </div>
-    <div style="background: white;line-height: 20px;display: flex">
+    <div style="background: white;line-height: 20px;display: flex;">
       <div style="padding: 20px">
         <img
           src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551208404800&di=e7228ee2e354a60aceb076570065c1f4&imgtype=0&src=http%3A%2F%2Fimg4.99114.com%2Fgroup1%2FM00%2F5B%2FE9%2FwKgGTFdw8SeADipnAAE80NG6E0U440.jpg"
           width="150px" height="150px"/>
       </div>
       <div>
-        <p style="padding-top: 20px">米奇轮胎</p>
+        <p style="padding-top: 20px;color: rgb(85, 85, 85)">米奇轮胎</p>
         <p style="color: #999">90/90-20真空轮胎摩托车</p>
-        <span style="color: red">￥250</span>
+        <span style="color: #f44">￥250</span>
       </div>
     </div>
     <!--专题精选-->
     <div style="background: white">
-      <div style="padding: 15px;text-align: center;margin-top: 10px">
+      <div style="padding: 10px;text-align: center;margin-top: 10px;border: 1px solid #bbb;color: rgb(85, 85, 85)">
         专题精选 >
       </div>
-      <div style="line-height: 10px;padding-left: 10px">
+      <div style="line-height: 10px;margin-bottom: 60px;margin-top: 5px">
         <img src="https://img12.360buyimg.com/n1/jfs/t28771/205/431406045/382489/8f831c01/5bf39e46N6551e007.jpg"
              width="100%" height="200px"/>
         <div>
-          <span style="float: right;color: red;padding-right: 10px">159元起</span>
-          <p>朝阳轮胎</p>
+          <span style="float: right;color: #f44;padding-right: 10px">159元起</span>
+          <p style="color: rgb(85, 85, 85)">朝阳轮胎</p>
         </div>
         <p style="color: #999;font-size: 14px">朝阳3:00-10大力神667无气可行驶 6层正空</p>
       </div>
     </div>
-    <!--<div>-->
-    <!--<van-tabbar v-model="active" active-color="#07c160" fixed="true" >-->
-    <!--<van-tabbar-item icon="home-o" >首页</van-tabbar-item>-->
-    <!--<van-tabbar-item icon="search" to="/towpage">专题</van-tabbar-item>-->
-    <!--<van-tabbar-item icon="search">分类</van-tabbar-item>-->
-    <!--<van-tabbar-item icon="setting-o">购物车</van-tabbar-item>-->
-    <!--</van-tabbar>-->
-    <!--</div>-->
   </div>
 </template>
 
@@ -106,6 +99,71 @@
 </script>
 
 <style scoped>
-  .hello{}
-  @import "./aheader.css";
+  .hello{
+    margin: 10px;
+  }
+  .title-aheader {
+    margin: 0;
+    padding: 0;
+    color: black;
+  }
+
+  .top-input input {
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+    color: red;
+    font-size: 14px;
+    padding-top: 8px;
+    border-radius: 15px;
+    border: 1px solid #999;
+  }
+
+  .imgs-title {
+    font-size: 12px;
+    color: rgb(162, 49, 62);
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3px;
+    padding: 10px;
+    background: white;
+  }
+
+  .imgs-title span {
+    background: url("../assets/icon.png") no-repeat;
+    background-size: 15px;
+    padding-left: 18px;
+  }
+
+  .main-shop {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .shop-left {
+    text-align: center;
+    line-height: 25px;
+    padding-top: 20px;
+    background: white;
+    flex: 1;
+  }
+
+  .shop-left img {
+    padding-bottom: 15px;
+  }
+
+  .shop-left h4, h5 {
+    padding: 0;
+    margin: 0;
+    font-weight: normal;
+    color: rgb(85, 85, 85);
+  }
+
+  .shop-left h5 {
+    color: #999;
+  }
+
+  .shop-left span {
+    color: #f44;
+  }
 </style>

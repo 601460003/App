@@ -4,12 +4,16 @@ import aheader from '@/components/aheader'
 import towpage from '@/components/towpage'
 import  shopcar from '@/components/shopcar'
 import  me from '@/components/me'
-import  tabbar from '@/components/tabbar'
+import  moreshop from '@/components/moreshop'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      component: aheader
+    },
     {
       path: '/aheader',
       name: 'aheader',
@@ -31,9 +35,9 @@ export default new Router({
       component: me
     },
     {
-      path: '/tabbar',
-      name: 'tabbar',
-      component: tabbar
+      path: '/moreshop',
+      name: 'moreshop',
+      component: moreshop
     }
   ],
   mode:'history'
