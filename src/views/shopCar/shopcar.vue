@@ -29,7 +29,7 @@
           <!--v-model="checked"-->
           <van-checkbox >全选</van-checkbox>
           <span slot="tip">
-    你的收货地址不支持同城送, <span>修改地址.</span>
+    你的收货地址不支持同城送, <span>修改地址</span>
   </span>
         </van-submit-bar>
       </div>
@@ -65,7 +65,7 @@
   }
 
   .imgs-title span {
-    background: url("../assets/icon.png") no-repeat;
+    /*background: url("../../assets/radio button.png") no-repeat;*/
     background-size: 15px;
     padding-left: 20px;
   }

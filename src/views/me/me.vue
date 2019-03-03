@@ -27,13 +27,13 @@
   </van-row>
 </div>
         <van-cell-group class="user-group">
-          <van-cell icon="records" title="我的拼团订单" is-link />
+          <van-cell icon="like" title="我的拼团订单" is-link  />
         </van-cell-group>
 
       <div style="font-size: 16px">
         <van-cell-group>
           <van-cell icon="points" title="我的积分" is-link />
-          <van-cell icon="gold-coin-o" title="我的优惠券" is-link />
+          <van-cell icon="gold-coin" title="我的优惠券" is-link />
           <van-cell icon="gift-o" title="我收到的礼物" is-link />
           <!--第二栏-->
           <van-cell icon="service-o" title="在线客服" is-link />
@@ -60,15 +60,21 @@
 </script>
 
 <style scoped>
-.top-top{
-  text-align: center;
-  margin: 10px auto;
-  font-size: 13px;
-}
-.van-icon{
-  font-size: 20px;
-}
-  .van-cell{
+  .top-top {
+    text-align: center;
+    margin: 10px auto;
+    font-size: 13px;
+  }
+
+  .van-icon {
+    font-size: 20px;
+  }
+
+  .van-cell {
     font-size: 15px;
+  }
+
+  .van-icon-like:before {
+    color: red;
   }
 </style>

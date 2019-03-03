@@ -23,24 +23,24 @@
             tabbar: [
               {
                 name: '精选',
-                path: '/aheader',
-                pathName: 'aheader',
+                path: '/home',
+                pathName: 'home',
                 icon: 'wap-home',
                 dot: false,
                 info: ''
               },
               {
                 name: '专题',
-                path: '/towpage',
-                pathName: 'towpage',
+                path: '/subject',
+                pathName: 'subject',
                 icon: 'vip-card-o',
                 dot: false,
                 info: ''
               },
               {
                 name: '分类',
-                path: '/moreshop',
-                pathName: 'moreshop',
+                path: '/shoplist',
+                pathName: 'shoplist',
                 icon: 'orders-o',
                 dot: false,
                 info: ''
@@ -68,6 +68,3 @@
     }
 </script>
 
-<style scoped>
-
-</style>

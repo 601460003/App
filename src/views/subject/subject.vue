@@ -40,7 +40,7 @@
 
 <script>
   export default {
-    name: "towpage"
+    name: "subject"
   }
 </script>
 
