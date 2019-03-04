@@ -17,6 +17,13 @@
 <script>
     export default {
         name: "v-tabber",
+        props:{
+          active:{
+           type: Number,
+           value: 0
+          },
+          
+        }
       data(){
           return{
            
