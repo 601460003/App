@@ -1,6 +1,6 @@
 <template>
 <div>
-  <van-tabbar v-model="active" style="z-index: 1999">
+  <van-tabbar v-model="active" style="z-index: 1999"   @change="isActive()">
     <van-tabbar-item
       v-for="(tab, index) in tabbar"
       :icon="tab.icon"
@@ -64,6 +64,12 @@
 
             ]
           }
+      },
+      methods:{
+        isActive(e){
+          // console.log(e)
+          // this.active=value;
+        },
       },
     }
 </script>
