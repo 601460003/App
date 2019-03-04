@@ -19,7 +19,7 @@
         name: "v-tabber",
       data(){
           return{
-            active: 0,
+           
             tabbar: [
               {
                 name: '精选',
