@@ -1,8 +1,9 @@
 <template>
 <div>
-  <van-tabbar v-model="active" style="z-index: 1999"   @change="isActive()">
+  <!--v-model="isActive"-->
+  <van-tabbar v-model="active" style="z-index: 1999"   >
     <van-tabbar-item
-      v-for="(tab, index) in tabbar"
+      v-for="(tab,index) in tabbar"
       :icon="tab.icon"
       :to="tab.path"
       :dot="tab.dot"
@@ -16,10 +17,25 @@
 
 <script>
     export default {
-        name: "v-tabber",
+      // props:{
+      //   active:{
+      //     type:Number,
+      //     value:0
+      //   }
+      // },
+      // 这是第一种方法利用props传参显示导航tab
+      // computed: {
+      //   isActive: {
+      //     get: function () {
+      //       return this.active
+      //     },
+      //     set() {
+      //     }
+      //   }
+      // },
       data(){
           return{
-            active: 0,
+            active:0,
             tabbar: [
               {
                 name: '精选',
@@ -27,7 +43,7 @@
                 pathName: 'home',
                 icon: 'wap-home',
                 dot: false,
-                info: ''
+                info: '',
               },
               {
                 name: '专题',
@@ -35,7 +51,7 @@
                 pathName: 'subject',
                 icon: 'vip-card-o',
                 dot: false,
-                info: ''
+                info: '',
               },
               {
                 name: '分类',
@@ -43,7 +59,7 @@
                 pathName: 'shoplist',
                 icon: 'orders-o',
                 dot: false,
-                info: ''
+                info: '',
               },
               {
                 name: '购物车',
@@ -51,7 +67,7 @@
                 pathName: 'shopcar',
                 icon: 'shopping-cart-o',
                 dot: false,
-                info: ''
+                info: '',
               },
               {
                 name: '个人',
@@ -59,18 +75,15 @@
                 pathName: 'me',
                 icon: 'manager-o',
                 dot: false,
-                info: ''
+                info: '',
               }
 
             ]
           }
       },
-      methods:{
-        isActive(e){
-          // console.log(e)
-          // this.active=value;
-        },
-      },
     }
 </script>
 
+<style scoped>
+
+</style>
