@@ -6,7 +6,7 @@
 
       </div>
       <div class="top-input">
-        <input type="text" placeholder="搜索商品，共21303款好货">
+        <input type="text" placeholder="搜索商品，共21303款好货" @click="searchList"/>
       </div>
       <!--//轮播图-->
       <div class="slideshow">
@@ -27,7 +27,7 @@
       <!--机油坐标-->
       <ul style="display: flex;flex-wrap: wrap;flex-direction: row;">
         <li v-for="goods in HotGoods">
-          <div class="shop-left" @click="shopMSG">
+          <div class="shop-left" @click="shopMSG(goods.id)">
             <img :src="goods.img"/>
             <div class="goods-goods">
               <span style="font-size: 14px">{{goods.name}} <span class="goods-describe" style="color:#c8c9cc">{{goods.describe}}</span></span>
@@ -38,15 +38,15 @@
       </ul>
     </div>
     <!--人气推介-->
-    <div style="background:white;">
+    <div style="background:white;" >
       <div
         style="padding: 10px;margin-top: 10px;color: rgb(85, 85, 85);border-bottom: 1px solid #F4F0EA;font-size: 15px">
         <span style="float: right;padding-top: 2px">更多 ></span>
         人气推荐
       </div>
-      <div class="getChoice" v-for="hots in getChoice" @click="shopMSG">
+      <div class="getChoice" v-for="(hots,index) in getChoice" :key="index" @click="shopMSG(hots.id)" >
         <div style="padding: 20px">
-          <img :src="hots.img" width="100px" height="100px"/>
+          <img :src="hots.img" width="100px" height="100px" />
         </div>
         <div>
           <p style="color:#333;font-size: 14px">{{hots.name}}</p>
@@ -122,9 +122,14 @@ import header from '@/components/header'
         let path = '/banners/' + str;
         this.$router.push({path: path})
       },
-      shopMSG() {
-        this.$router.push({path: '/shopmsg'})
+
+      shopMSG(str) {
+        let path = '/shopmsg/' + str;
+        this.$router.push({path: path})
       },
+      searchList(){
+        this.$router.push({path:'/search'})
+      }
     }
   }
 </script>
@@ -145,7 +150,7 @@ import header from '@/components/header'
     margin: 10px auto;
     text-align: center;
     font-size: 12px;
-    padding: 6px 0;
+    padding: 3px 0;
     border-radius: 15px;
     border: 1px solid #999;
   }
