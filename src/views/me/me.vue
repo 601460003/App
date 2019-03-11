@@ -1,9 +1,8 @@
 <template>
   <div>
     <div>
-      <!--<img class="user-poster"-->
       <!--src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551360999932&di=00c95a87b6850940982986135bf0d195&imgtype=0&src=http%3A%2F%2Fp4.ssl.cdn.btime.com%2Ft0179296d244cd01a3b.jpg%3Fsize%3D564x266 "-->
-      <!--width="100%"/>-->
+      <v-header title="个人中心"></v-header>
       <div class="me-me">
         <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2955494591,2990420735&fm=26&gp=0.jpg"/>
         <a v-if="mobile">{{mobile}}<span class="mobile_name">手机用户</span></a>
@@ -13,45 +12,56 @@
         <img src="http://img4.imgtn.bdimg.com/it/u=430635927,4207059803&fm=26&gp=0.jpg"/>
       </div>
       <van-cell-group class="user-group">
-        <router-link to="/myOrder">
+        <router-link to="/myOrder/0">
           <van-cell icon="records" title="我的订单" is-link/>
         </router-link>
       </van-cell-group>
       <!--分栏-->
-      <div class="top-top" @click="payPape(type)">
-        <van-row class="user-links">
+      <div class="top-top">
+        <van-row class="user-links"  >
           <van-col span="6">
+            <router-link to="/myOrder/0">
             <van-icon name="pending-payment"/>
-            <div>待付款</div>
+            <div class="van_icon">全部</div>
+            </router-link>
           </van-col>
+
           <van-col span="6">
-            <van-icon name="records"/>
-            <div>待接单</div>
-          </van-col>
-          <van-col span="6">
+            <router-link to="/myOrder/1">
             <van-icon name="tosend"/>
-            <div>待发货</div>
+            <div class="van_icon">待发货</div>
+            </router-link>
           </van-col>
           <van-col span="6">
+            <router-link to="/myOrder/2">
             <van-icon name="logistics"/>
-            <div>已发货</div>
+            <div class="van_icon">已发货</div>
+            </router-link>
+          </van-col>
+          <van-col span="6">
+            <router-link to="/myOrder/3">
+              <van-icon name="records"/>
+              <div class="van_icon">待评价</div>
+            </router-link>
           </van-col>
         </van-row>
       </div>
-      <van-cell-group class="user-group">
-        <van-cell icon="like-o" title="我的拼团订单" is-link/>
-      </van-cell-group>
-
+        <!--个人中心组件-->
+      <spilt></spilt>
       <div>
         <van-cell-group>
-          <van-cell icon="points" title="我的积分" is-link/>
-          <van-cell icon="balance-list-o" title="我的优惠券" is-link/>
-          <van-cell icon="gift-o" title="我收到的礼物" is-link/>
-          <!--第二栏-->
-          <van-cell icon="service-o" title="在线客服" is-link/>
-          <van-cell icon="question-o" title="帮助中心" is-link/>
-          <van-cell icon="setting-o" title="系统设置" is-link/>
+          <van-cell icon="points" title="我的积分" is-link @click="myIntegral"/>
+          <!--我的优惠卷-->
+          <van-cell icon="balance-list-o" title="我的优惠券" is-link @click="myCoupons"/>
+          <!--在线客服-->
+          <van-cell icon="service-o" title="在线客服" is-link @click="callCenter"/>
+          <!--帮助中心-->
+            <van-cell icon="question-o" title="帮助中心" is-link @click="helpCenter"/>
         </van-cell-group>
+        <!--点击退出的按钮-->
+        <div @click="quitEnter" v-if="mobile">
+          <button class="over_button">退出当前账户</button>
+        </div>
       </div>
     </div>
     <!--// 这是第一种方法利用props传参显示导航tab-->
@@ -60,48 +70,99 @@
 </template>
 
 <script>
-  import {Row, Col, Icon, Cell, CellGroup} from 'vant';
-
-
+  import header from '@/components/header'
+  import  spilt from '@/components/spilt'
   export default {
-    name: "me",
+
     components: {
-      [Row.name]: Row,
-      [Col.name]: Col,
-      [Icon.name]: Icon,
-      [Cell.name]: Cell,
-      [CellGroup.name]: CellGroup,
+      spilt,
+      'v-header':header
     },
 
     data() {
       return {
         mobile: '',
-
+        active:'',
       }
     },
     created() {
-      var user = localStorage.getItem("user")
-    if(user){
-      // mobile
-      // get mobile 获取用户
-      this.mobile = JSON.parse(user).mobile;
-      this.$axios.get('me/getMember?mobile='+this.mobile)
-        .then(res=>{
-          console.log(res)
-          if(res.data.code==100){
-            this.mobile=res.data.data.mobile
-          }
-        })
-    }else {
+      // 获取localstorage里面的缓存数据
+      var user = localStorage.getItem("user");
+      if (user) {
+        // mobile
+        // get mobile 获取用户
+        this.mobile = JSON.parse(user).mobile;
+
+        this.$axios.get('me/getMember?mobile=' + this.mobile)
+          .then(res => {
+            if (res.data.code == 100) {
+              this.mobile = res.data.data.mobile
+            }
+          })
+      } else {
         // this.$router.push({path:'/Login'})
-    }
-
-
+      }
     },
     methods: {
-      payPape(e) {
-        alert(e)
-      }
+      /**
+       * 退出登录
+       */
+      quitEnter(){
+        localStorage.removeItem("user");
+        this.mobile ='';
+     },
+      /**
+       * 我的优惠券
+       */
+      myCoupons(){
+       if(this.mobile){
+         this.$toast('暂无优惠券');
+       }else {
+         this.$dialog.alert({
+           message: '请登录'
+         });
+       }
+      },
+      /**
+       * 客服中心
+       */
+      callCenter(){
+        if(this.mobile){
+          this.$dialog.alert({
+            message: '客服联系电话：131-4852-8414'
+          });
+        }else {
+          this.$dialog.alert({
+            message: '请登录'
+          });
+        }
+      },
+      /**
+       * 我的积分
+       */
+      myIntegral() {
+        if (this.mobile) {
+          this.$dialog.alert({
+            message: '你的积分为0，快去选购你的宝贝呢～'
+          });
+        } else {
+          this.$dialog.alert({
+            message: '请登录'
+          });
+        }
+      },
+      /**
+       * 帮助中心
+       */
+      helpCenter(){
+        if(this.mobile){
+          this.$router.push({path:'/help'})
+        }else {
+          this.$dialog.alert({
+            message: '请登录'
+          });
+        }
+      },
     },
   }
 </script>
@@ -115,28 +176,22 @@
 
   .van-icon {
     font-size: 20px;
+    color: #323233;
   }
 
   .van-cell {
     font-size: 14px;
   }
+  .van_icon{
+    color:#323233 ;
+  }
 
-  /*.van-icon-like:before {*/
-  /*color: #f44;*/
-  /*}*/
-
-  /*.van-icon-balance-list:before {*/
-  /*color: #f44;*/
-  /*}*/
-
-  /*.van-icon-gold-coin:before {*/
-  /*color: #f44;*/
-  /*}*/
 
   .me-me {
     position: relative;
-    padding: 25px;
-    height: 55px;
+    padding-top: 40px;
+    padding-left: 15px;
+    height: 90px;
     font-size: 14px;
     background: blanchedalmond
   }
@@ -158,15 +213,24 @@
     width: 50px;
     position: absolute;
     right: 20px;
-    top: 25px;
+    top: 85px;
   }
 
   .mobile_name {
     position: absolute;
-    left: 88px;
-    top: 64px;
+    left: 79px;
+    top: 75px;
     color: #999;
     font-size: 13px;
+  }
+  .over_button{
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #f44;
+    border: 1px solid #f44;
+    margin-top: 50px;
   }
 
 </style>

@@ -9,8 +9,8 @@ import Router from 'vue-router'
 import banners from '../pages/bannerMssage/banners'
 import Login from '../pages/Login/Login'
 import myOrder from '../pages/myCenter/myOrder'
+import help from '../pages/myCenter/help'
 import Mobile from '../pages/Login/Mobile'
-// import orderPay from '../pages/myCenter/orderPay'
 import search from '../pages/search/search'
 
 Vue.use(Router)
@@ -78,13 +78,19 @@ export default new Router({
       component: Login,
     },
     {
-      path: '/myOrder',
+      path: '/myOrder/:active',
       name: 'myOrder',
       component: myOrder,
 
     },
     {
-      path: '/Mobile',
+      path: '/help',
+      name: 'help',
+      component: help,
+
+    },
+    {
+      path: '/Mobile/:type',
       name: 'Mobile',
       component: Mobile,
     },

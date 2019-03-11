@@ -1,6 +1,5 @@
-# app
+Vue 商城项目
 
-> A Vue.js project
 
 ## Build Setup
 

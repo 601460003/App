@@ -2,11 +2,12 @@
   <div>
     <!--头部组件-->
     <v-header title="创意">
-      <span style="font-size: 14px;position: absolute;left: 11px;top: 15px;" slot="left" @click="back">返回</span>
+      <span class="icon iconfont iconfanhui" slot="left" @click="back"></span>
     </v-header>
-    <div style="margin: 5px 10px 80px;background: #fafafa">
+    <!--内容-->
+    <div class="banner_title">
       <div v-for="banner in contents" class="banner-img">
-        <h1>{{banner.text}}</h1>
+        <p>{{banner.text}}</p>
         <img v-if="banner.img" :src="banner.img"/>
       </div>
     </div>
@@ -46,14 +47,25 @@
 </script>
 
 <style scoped>
-  .banner-img h1{
-    font-size: 16px;
-    text-indent: 32px;
-    font-weight: normal;
+  .banner-img p{
+    font-size: 14px;
+    text-indent: 29px;
     color: #333;
   }
   .banner-img img {
     width: 100%;
     height: 250px;
+  }
+
+  .icon {
+    font-size: 14px;
+    position: absolute;
+    left: 11px;
+    top: 13px;
+  }
+
+  .banner_title {
+    margin: 5px 10px 80px;
+    background: #fafafa;
   }
 </style>

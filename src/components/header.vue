@@ -1,6 +1,6 @@
 <template>
   <div class="title-aheader">
-    <slot name="left" ></slot>
+    <slot name="left" class="a"></slot>
    <span> {{title}}</span>
     <slot name="right"></slot>
   </div>

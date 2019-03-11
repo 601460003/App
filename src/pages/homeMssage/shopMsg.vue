@@ -30,17 +30,18 @@
       <!--颜色。尺码。数量-->
       <div style="margin-bottom: 40px">
         <div class="shop-size-box">
-          <span class="shop-color">颜色</span>
-          <span class="shop-size shop-size-active">美孚旋风4T 102-40</span>
-          <span class="shop-size">美孚小霸王2T</span>
+          <div><span class="shop-color">颜色</span></div>
+          <div v-for="(shop_tyoe,index) in shopType" :key="index" @click="selectType(index)" class="shop_tyoe">
+            <span class="shop-size " :class="{shopping_type:highlight===index}">{{shop_tyoe.type}}</span>
+          </div>
         </div>
         <div class="shop-size-box">
           <span class="shop-color">尺寸</span>
-          <span class="shop-size shop-size-active">1L</span>
+          <span class="shop-size-active">1L</span>
         </div>
         <div class="shop-size-box">
           <span class="shop-color">数量</span>
-          <span><van-stepper v-model="value"/></span>
+          <span><van-stepper v-model="count"/></span>
         </div>
       </div>
       <spilt></spilt>
@@ -55,6 +56,7 @@
             :info="value"
             icon="cart-o"
             text="购物车"
+            @click="toShopCar"
           />
           <van-goods-action-mini-btn
             icon="shop-o"
@@ -78,43 +80,106 @@
     data() {
       return {
         shopMessage: [],
-        value:1,
-        mobileID:'',
+        value: 0,
+        count: 0,
+        highlight:0,
+        mobileID: '',
+        shopType: [
+          {
+            type: '美孚旋风4T 102-40',
+          },
+          {
+            type: '美孚小霸王2T',
+          },
+          {
+            type: '美孚大霸王8T',
+          },
+        ],
       }
     },
     components: {
       spilt
     },
-    created(){
-      // 利用缓存拿到user的信息，在通过转化JSON获取到使用者的ID
-      var user =localStorage.getItem("user");
-      this.mobileID=JSON.parse(user).id;
-    },
-
-    //home/getGoodById?id=2
-    mounted() {
+    created() {
+      /**
+       *
+       * 利用缓存拿到user的信息，在通过转化JSON获取到使用者的ID
+       */
+      var user = localStorage.getItem("user");
+      /**
+       *
+       *获取购物车商品信息    //home/getGoodById?id=2
+       */
       var getGoodBy = 'home/getGoodById?id=' + this.$route.params.id;
       this.$axios.get(getGoodBy)
         .then(res => {
           this.shopMessage = res.data.data;
         });
-
-    },
-    methods: {
+      if (user) {
+        this.mobileID = JSON.parse(user).id;
+        /**
+         * 获取购物车的数量信息
+         */
+        this.$axios.get('home/getCar?sessionId=' + this.mobileID)
+          .then(res => {
+            if (res.data.code == 100) {
+              if (res.data.data) {
+                this.value = res.data.data.total
+              }
+            }
+          })
+        }
+      },
+    /**
+     *下面写methods方法
+     */
+      methods: {
       shopMsg() {
         this.$router.go(-1)
       },
-      addCars(){
-        var shopping={
+      /**
+       *把服务器需要的信息 定义成对象post到URL
+       */
+      addCars() {
+        var shopping = {
           goodId: this.shopMessage.id,
-          amount:this.value,
-          sessionId:this.mobileID
+          amount: this.count,
+          sessionId: this.mobileID
         };
-        this.$axios.post('home/addCar',shopping)
-          .then(res=>{
-            console.log(res)
-          })
+        this.$axios.post('home/addCar', shopping)
+          .then(res => {
+            if (res.data.code == 100) {
+
+              this.$toast('添加成功');
+              /**
+               * 添加成功后再次获取商品数量的请求
+               */
+              this.$axios.get('home/getCar?sessionId=' + this.mobileID)
+                .then(res => {
+                  console.log(res)
+                  if (res.data.code == 100) {
+                    if (res.data.data) {
+                      this.value = res.data.data.total
+                    }
+                  }
+                })
+              }
+           });
+         },
+      /**
+       *
+       * 点击去购物车页面
+       */
+      toShopCar(){
+        this.$router.push({path:'/shopcar'})
       },
+      /**
+       *
+       * 点击商品类型为高亮
+       */
+      selectType(id) {
+       this.highlight=id;
+      }
     },
   }
 </script>
@@ -125,7 +190,14 @@
     font-size: 15px;
     background-color: #1989fa;
     color: #fff;
+    text-align: center;
   }
+  .icon{
+    position: absolute;
+    left: 10px;
+    top: 12px;
+  }
+
 
   .shopping-img {
     text-align: center;
@@ -160,8 +232,11 @@
   .shopping-my {
     background: #f44;
     color: white;
-    font-size: 12px;
-    padding: 2px
+    font-size: 13px;
+    padding-top: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 1px;
   }
 
   .shopping-time {
@@ -172,8 +247,8 @@
   .shopping-kill {
     background: #f44;
     color: white;
-    font-size: 10px;
-    padding: 1px 5px;
+    font-size: 12px;
+    padding: 2px 5px;
     border-radius: 10px;
   }
 
@@ -200,28 +275,35 @@
     background: #363634;
     color: #e5d790;
     margin-right: 3px;
-    padding: 1px;
+    padding: 1px 3px;
     font-size: 12px;
-    border-radius: 5px;
+    border-radius: 15px;
   }
 
   .shop-size-box {
-    margin: 15px 5px;
+    margin: 17px 5px;
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .shop-size {
     background: #dee1e6;
     color: #333;
     font-size: 13px;
-    padding: 5px;
     margin-right: 10px;
     border-radius: 3px;
+    display: inline-block;
+    padding: 3px 5px;
   }
 
   .shop-size-active {
     background: #f44;
     color: #fff;
+    font-size: 13px;
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 3px;
   }
 
   .shop-color {
@@ -235,9 +317,15 @@
     top: -7px;
     left: 36px;
   }
-  .shopping-kill-box p{
+
+  .shopping-kill-box p {
     margin: 10px auto;
     font-size: 12px;
+  }
+
+  .shopping_type {
+    background: #f44;
+    color: #fff;
   }
 
 

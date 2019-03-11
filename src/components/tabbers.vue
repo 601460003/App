@@ -7,10 +7,13 @@
       :to="tab.path"
       :dot="tab.dot"
       :info="tab.info"
-      :key="index">
+      :key="index"
+    >
       {{tab.name}}
     </van-tabbar-item>
   </van-tabbar>
+  <!--购物车图标的小红圈-->
+  <!--<div class="shopNunber">{{shopsCount}}</div>-->
 </div>
 </template>
 
@@ -32,9 +35,28 @@
       //     }
       //   }
       // },
+      mounted(){
+        var user = localStorage.getItem("user");
+        if(user){
+          this.mobileID = JSON.parse(user).id;
+          // 通过get请求返回数据获取购物车的信息
+          this.$axios.get('home/getCar?sessionId=' + this.mobileID)
+            .then(res => {
+              if (res.data.code == 100){
+                if (res.data.data) {
+                  console.log(res)
+                  this.shopsCount = res.data.data.total
+                }
+              }
+            })
+        }else {
+
+        }
+      },
       data(){
           return{
             active: 0,
+            shopsCount:0,
             tabbar: [
               {
                 name: '精选',
@@ -42,7 +64,6 @@
                 pathName: 'home',
                 icon: 'wap-home',
                 dot: false,
-                info: ''
               },
               {
                 name: '专题',
@@ -66,7 +87,7 @@
                 pathName: 'shopcar',
                 icon: 'shopping-cart-o',
                 dot: false,
-                info: ''
+                info:''
               },
               {
                 name: '个人',
@@ -88,4 +109,24 @@
       },
     }
 </script>
+<style scoped>
+  .shopNunber{
+    position: fixed;
+    right: 94px;
+    bottom: 32px;
+    color: #fff;
+    font-size:13px;
+    font-weight: 500;
+    font-family: PingFang SC,Helvetica Neue,Arial,sans-serif;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    /*padding:1px;*/
+    min-width: 0.42667rem;
+    border: 0.02667rem solid #fff;
+    border-radius: 0.42667rem;
+    background-color: #f44;
+    z-index: 2000;
+  }
+</style>
 

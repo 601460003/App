@@ -7,8 +7,8 @@
     <div class="login-div2"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2692288157,3206351884&fm=26&gp=0.jpg"/></div>
     <div class=" login-div login-active">微信登录</div>
     <div class="login-div">邮箱账号登录</div>
-    <div class="login-div">手机号码登录</div>
-    <div class="login-div1" @click="phone">手机快捷注册 ></div>
+    <div class="login-div" @click="phone_enter">手机号码登录</div>
+    <div class="login-div1" @click="phone_login">手机快捷注册 ></div>
   </div>
 </div>
 </template>
@@ -26,17 +26,16 @@
       },
       methods:{
         shopMsg(){
-          this.$router.go(-1)
+          this.$router.go(-2)
         },
-        phone(){
-         // var p={
-         //   mobile:'121231223'
-         // }
-         //  this.$axios.post('me/addMember',p).then(res=>{
-         //
-         //  })
-          this.$router.push({path:'/Mobile'})
+        phone_login(){
+          var loginPath='/Mobile/'+'loginPath'
+          this.$router.push({path:loginPath})
         },
+        phone_enter(){
+          var enterPath='/Mobile/'+'enterPath'
+          this.$router.push({path:enterPath})
+        }
       },
     }
 </script>

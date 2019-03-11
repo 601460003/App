@@ -1,20 +1,32 @@
 <template>
   <div style="height: 736px">
-    <v-header title="绑定手机">
+    <v-header title="绑定手机"  v-if="selectLogin==='loginPath'">
+      <span class="icon iconfont iconfanhui" slot="left" @click="back"></span>
+    </v-header>
+    <v-header title="手机登录"  v-if="selectLogin==='enterPath'">
       <span class="icon iconfont iconfanhui" slot="left" @click="back"></span>
     </v-header>
     <div class="mobile-container">
-      <div class="mobile_title">手机号码注册</div>
+      <div  v-if="selectLogin==='loginPath'" class="mobile_title">手机号注册</div>
+      <div  v-else="selectLogin==='enterPath'" class="mobile_title ">手机号登录</div>
       <div class="mobile-content">
         <!--maxlength最大长度，利用计算属性来绑定黑色样式-->
         <input type="text" maxlength="11" placeholder="请输入手机号" v-model="mobile">
         <!--button属性disabled-->
         <input type="text" maxlength="4" placeholder="请输入短信验证码" v-model="color">
-        <input type="text" maxlength="11" placeholder="请输入密码">
-        <button class="mobile_button" @click="loginMobile" :class="{login_color:loginColor}">注册</button>
+
+        <!--判断登录的方式-->
+        <input v-if="selectLogin==='loginPath'" type="text" maxlength="11" placeholder="请输入密码">
+        <div v-else="selectLogin==='enterPath'" class="code_login">
+          <span class="code">使用密码验证登录</span>
+        </div>
+            <!--判断按钮的显示方式-->
+        <button v-if="selectLogin==='loginPath'" class="mobile_button" @click="loginMobile" :class="{login_color:loginColor}">注册</button>
+        <button v-else="selectLogin==='enterPath'" class="mobile_button" style="margin-top: 5px" @click="enterMobile" >登录</button>
+
       </div>
       <button v-show="sendAuthCode" :disabled="!rightMobile" class="mobile-get" :class="{right_mobile:rightMobile}" @click.prevent="getCode">获取验证码</button>
-      <button v-show="!sendAuthCode" class="mobile-get right_mobiles ">{{computedTime}}秒后重新获取</button>
+      <button v-show="!sendAuthCode" class="mobile-get right_mobiles ">{{computedTime}}秒</button>
     </div>
   </div>
 </template>
@@ -29,61 +41,91 @@
         mobile: '',
         computedTime:0,
         sendAuthCode:true,
-        color:''
+        color:'',
+        selectLogin:''
       }
     },
     components: {
       'v-header': header,
     },
+    created(){
+      /**
+       * 获取路由参数名字
+       */
+     this.selectLogin= this.$route.params.type
+    },
     methods: {
-      // 返回上一层
+      /**
+       * 返回上一层
+       */
       back() {
         this.$router.go(-1)
       },
-      // post数据请求
+      /**
+       * post带对象获取请求
+       */
       loginMobile() {
-        var p ={mobile:this.mobile}
+        var p = {mobile: this.mobile};
 
-          this.$axios.post('me/addMember', p)
-            .then(res => {
-              console.log(res)
-              if(res.data.code == 100){
-                alert('注册成功');
-                localStorage.setItem("user",JSON.stringify(res.data.data));
+        this.$axios.post('me/addMember', p)
+          .then(res => {
+            console.log(res)
+            if (res.data.code == 100) {
+              this.$toast('注册成功');
+              localStorage.setItem("user", JSON.stringify(res.data.data));
+              this.$router.go(-2)
+            }
+            else {
+              //重新注册
+              this.$toast('用户已存在，重新注册');
+            }
+
+          })
+         },
+      /**
+       * 获取信息进行登录
+       */
+      enterMobile() {
+        this.$axios.get('me/getMember?mobile='+this.mobile)
+          .then(res => {
+            if(res.data.code==100){
+              if(this.mobile=res.data.data.mobile){
+                this.$toast('登录成功');
+                localStorage.setItem("user", JSON.stringify(res.data.data));
                 this.$router.go(-2)
               }
-
-              else{
-                // 注册
-                alert('用户已存在，重新注册')
-              }
-
-            })
-
-      },
-      // 获取验证码
-      getCode(){
-        this.sendAuthCode=false;
-        if(!this.computedTime){
-          this.computedTime=60;
-          let time=setInterval(()=>{
-            this.computedTime--;
-            if(this.computedTime<=0){
-              clearInterval(time);
-              this.sendAuthCode=true
             }
-          },1000);
+
+          })
+      },
+      /**
+       * 获取验证码
+       */
+      getCode() {
+        this.sendAuthCode = false;
+        if (!this.computedTime) {
+          this.computedTime = 60;
+          let time = setInterval(() => {
+            this.computedTime--;
+            if (this.computedTime <= 0) {
+              clearInterval(time);
+              this.sendAuthCode = true
+            }
+          }, 1000);
         }
       },
     },
-    computed:{
-      // 利用计算属性来绑定黑色样式-->
-      rightMobile(){
+    computed: {
+      /**
+       *
+       * 利用计算属性来绑定黑色样式
+       */
+      rightMobile() {
         return /^1\d{10}$/.test(this.mobile)
       },
-      loginColor(){
-        if(this.rightMobile){
-          return  /^[0-9]\d{3}$/.test(this.color)
+      loginColor() {
+        if (this.rightMobile) {
+          return /^[0-9]\d{3}$/.test(this.color)
         }
       }
     },
@@ -91,6 +133,9 @@
 </script>
 
 <style scoped>
+  .code{
+    color: #333;
+  }
   .mobile_title{
     text-align: center;
     font-size: 15px;
@@ -146,17 +191,25 @@
     height: 30px;
     width: 90px;
     border-radius: 3px;
-    color: #333;
+    color: #999;
+    border: 1px solid #999;
   }
   .right_mobile{
-    color: lightseagreen;
+    color: #1989fa;
   }
   .login_color{
-    background: lightseagreen;
+    background: #1989fa;
+    border: 1px solid #1989fa;
     color: white;
   }
   .right_mobiles{
     color: red;
+    font-size: 12px;
+  }
+  .code_login{
+    font-size: 13px;
+    text-align: right;
+    padding-top: 10px;
   }
 
 </style>
