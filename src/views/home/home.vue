@@ -4,7 +4,7 @@
     <v-header title="华升车行"></v-header>
     <!--搜索框-->
     <van-search
-      placeholder="搜索商品，共21303款好货"
+      placeholder="搜索商品"
       show-action
       shape="round"
       input-align="center"
@@ -82,8 +82,8 @@
         <!--专题图片-->
         <img :src="subject.poster" width="100%" height="200px"/>
         <!--专题标题-->
-        <div>
-          <h3>{{subject.title}}</h3>
+        <div class="subject-title">
+          {{subject.title}}
         </div>
         <!--内柔-->
         <p class="subject-content">{{subject.content}}</p>
@@ -310,4 +310,9 @@ import header from '@/components/header'
     margin-top: 5px;
   }
 
+  .subject-title{
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bolder;
+  }
 </style>

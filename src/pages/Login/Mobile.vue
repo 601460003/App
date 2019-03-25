@@ -16,18 +16,23 @@
         <!--<input type="text" maxlength="4" placeholder="请输入短信验证码" v-model="color">-->
 
         <!--判断登录的方式-->
-        <input v-if="selectLogin==='loginPath'"
-               maxlength="11" placeholder="请输入密码" type="password" v-model="password" >
-        <div v-else="selectLogin==='enterPath'" class="code_login">
-          <span class="code">使用密码验证登录</span>
-        </div>
+        <input maxlength="11" placeholder="请输入密码" type="password" v-model="password" >
+        <!--<div v-else="selectLogin==='enterPath'" class="code_login">-->
+          <!--<span class="code">使用密码验证登录</span>-->
+        <!--</div>-->
             <!--判断按钮的显示方式-->
-        <button v-if="selectLogin==='loginPath'" class="mobile_button" @click="loginMobile" :class="{login_color:loginColor}">注册</button>
-        <button v-else="selectLogin==='enterPath'" class="mobile_button" style="margin-top: 5px" @click="enterMobile" >登录</button>
+        <button v-if="selectLogin==='loginPath'"
+                class="mobile_button"
+                @click="loginMobile"
+                :class="{login_color:loginColor}">注册
+        </button>
+        <button v-else="selectLogin==='enterPath'"
+                class="mobile_button"
+                @click="enterMobile" >登录</button>
 
       </div>
-      <button v-show="sendAuthCode" :disabled="!rightMobile" class="mobile-get" :class="{right_mobile:rightMobile}" @click.prevent="getCode">获取验证码</button>
-      <button v-show="!sendAuthCode" class="mobile-get right_mobiles ">{{computedTime}}秒</button>
+      <!--<button v-show="sendAuthCode" :disabled="!rightMobile" class="mobile-get" :class="{right_mobile:rightMobile}" @click.prevent="getCode">获取验证码</button>-->
+      <!--<button v-show="!sendAuthCode" class="mobile-get right_mobiles ">{{computedTime}}秒</button>-->
     </div>
   </div>
 </template>
@@ -181,7 +186,7 @@
   .mobile_button{
     font-size: 14px;
     color: #fff;
-    margin-top: 20px;
+    margin-top: 30px;
     border-radius: 5px;
     border: 1px solid #BB3343;
     background:#BB3343 ;

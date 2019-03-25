@@ -85,7 +85,9 @@
     background-color: #f5f5f5;
   }
   .classification-text{
-    margin-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
   }
   .active {
     background-color: #fff;

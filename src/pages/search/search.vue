@@ -9,7 +9,7 @@
       placeholder="请输入搜索关键词"
       show-action
       shape="round"
-
+      @search="search"
     >
       <div slot="action" >搜索</div>
     </van-search>
@@ -31,6 +31,9 @@
       methods:{
         back(){
           this.$router.go(-1)
+        },
+        search(){
+          this.$toast('服务器异常！');
         }
       },
 
