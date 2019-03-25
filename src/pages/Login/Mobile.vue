@@ -92,8 +92,7 @@
               this.$toast('注册成功');
               localStorage.setItem("user", JSON.stringify(res.data.data));
               this.$router.go(-2)
-            }
-            else {
+            } else {
               //重新注册
               this.$toast('用户已存在，重新注册');
             }
@@ -112,6 +111,8 @@
                 localStorage.setItem("user", JSON.stringify(res.data.data));
                 this.$router.go(-2)
               }
+            }else {
+              this.$toast(res.msg);
             }
 
           })
