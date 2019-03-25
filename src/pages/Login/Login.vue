@@ -47,14 +47,14 @@
     top: 15px;
   }
   .login{
-    margin: 80px 20px;
+    margin: 40px 8px 60px 8px;
   }
   .login-div{
     width: 100%;
     text-align: center;
     font-size: 15px;
     margin-top: 15px ;
-    border: 1px solid #BB3343;
+    border: 0.5px solid #BB3343;
     color: #BB3343;
     padding: 10px 0;
   }
@@ -66,8 +66,8 @@
   }
   .login-div2 img{
     width: 100%;
-    height: 150px;
-    border-radius: 10px;
+    height: 180px;
+    /*border-radius: 10px;*/
   }
   .login-active{
     background: #BB3343;
