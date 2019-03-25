@@ -13,10 +13,11 @@
         <!--maxlength最大长度，利用计算属性来绑定黑色样式-->
         <input type="text" maxlength="11" placeholder="请输入手机号" v-model="mobile">
         <!--button属性disabled-->
-        <input type="text" maxlength="4" placeholder="请输入短信验证码" v-model="color">
+        <!--<input type="text" maxlength="4" placeholder="请输入短信验证码" v-model="color">-->
 
         <!--判断登录的方式-->
-        <input v-if="selectLogin==='loginPath'" type="text" maxlength="11" placeholder="请输入密码">
+        <input v-if="selectLogin==='loginPath'"
+               maxlength="11" placeholder="请输入密码" type="password" v-model="password" >
         <div v-else="selectLogin==='enterPath'" class="code_login">
           <span class="code">使用密码验证登录</span>
         </div>
@@ -40,6 +41,7 @@
       return {
         mobile: '',
         computedTime:0,
+        password:'',
         sendAuthCode:true,
         color:'',
         selectLogin:''
@@ -65,7 +67,10 @@
        * post带对象获取请求
        */
       loginMobile() {
-        var p = {mobile: this.mobile};
+        var p = {
+          mobile: this.mobile,
+          password:this.password
+        };
 
         this.$axios.post('me/addMember', p)
           .then(res => {
@@ -86,7 +91,7 @@
        * 获取信息进行登录
        */
       enterMobile() {
-        this.$axios.get('me/getMember?mobile='+this.mobile)
+        this.$axios.get('me/getMember?mobile='+this.mobile+'&password='+this.password)
           .then(res => {
             if(res.data.code==100){
               if(this.mobile=res.data.data.mobile){
