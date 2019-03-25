@@ -76,6 +76,14 @@
           mobile: this.mobile,
           password:this.password
         };
+        if(!p.mobile){
+          this.$toast('请输入手机号码');
+          return
+        }
+        if(!p.password){
+          this.$toast('请输入密码');
+          return
+        }
 
         this.$axios.post('me/addMember', p)
           .then(res => {
