@@ -4,12 +4,9 @@
       <!--src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551360999932&di=00c95a87b6850940982986135bf0d195&imgtype=0&src=http%3A%2F%2Fp4.ssl.cdn.btime.com%2Ft0179296d244cd01a3b.jpg%3Fsize%3D564x266 "-->
       <v-header title="个人中心"></v-header>
       <div class="me-me">
-        <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2955494591,2990420735&fm=26&gp=0.jpg"/>
+        <img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1f2ssfh28j30i20i2gm4.jpg"/>
         <a v-if="mobile">{{mobile}}<span class="mobile_name">手机用户</span></a>
         <router-link to="/Login" v-else="!mobile">{{'登录/注册'}}</router-link>
-      </div>
-      <div class="me-me-img">
-        <img src="http://img4.imgtn.bdimg.com/it/u=430635927,4207059803&fm=26&gp=0.jpg"/>
       </div>
       <van-cell-group class="user-group">
         <router-link to="/myOrder/0">
