@@ -18,7 +18,7 @@ setHtmlFontSize();
 
 Vue.config.productionTip = false
 Vue.use(Vant)
-axios.defaults.baseURL = 'http://192.168.5.60:7000/';
+axios.defaults.baseURL = 'http://huasheng.easy.echosite.cn/api/';
 Vue.prototype.$axios = axios;
 
 /* eslint-disable no-new */

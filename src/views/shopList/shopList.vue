@@ -95,7 +95,7 @@
 
   .shopGoods-Menu li {
     display: inline-block;
-    padding: 30px;
+    padding: 23px;
     text-align: center;
     font-size: 14px;
   }

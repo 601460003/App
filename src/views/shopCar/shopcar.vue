@@ -76,7 +76,7 @@
       /**
        *通过localStorage获取手机号码的id
        */
-      var user = localStorage.getItem("user");
+        var user = localStorage.getItem("user");
       if (user) {
         this.mobileID = JSON.parse(user).id;
         // 通过get请求返回数据获取购物车的信息

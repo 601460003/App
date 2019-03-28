@@ -86,7 +86,7 @@
         mobileID: '',
         shopType: [
           {
-            type: '美孚旋风4T 102-40',
+            type: '美孚旋风4T ',
           },
           {
             type: '美孚小霸王2T',

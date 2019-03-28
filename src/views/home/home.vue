@@ -13,7 +13,7 @@
     >
       <div slot="action" >搜索</div>
     </van-search>
-    <!--//轮播图组件-->
+    <!--轮播图组件-->
     <div style="background: #f3f5f7;padding: 0 10px">
       <div class="slideshow">
         <van-swipe :autoplay="3000" indicator-color="white" style="height: 200px">
@@ -156,9 +156,10 @@ import header from '@/components/header'
 <style scoped>
   .shop_box {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    flex-wrap: nowrap;
+    /*flex-direction: row;*/
     margin: 0 5px;
+    overflow: scroll;
   }
   .hello {
     background: #f3f5f7;

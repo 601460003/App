@@ -174,6 +174,7 @@
 
   .order-img {
     border-bottom: 1px solid #F4F0EA;
+    border-radius: 20px;
   }
   .order-img-box{
     display: flex;
