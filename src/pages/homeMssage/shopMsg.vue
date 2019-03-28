@@ -29,16 +29,20 @@
       <spilt></spilt>
       <!--颜色。尺码。数量-->
       <div style="margin-bottom: 40px">
-        <div class="shop-size-box">
+        <div class="shop-size-box" v-if="colorS">
           <div><span class="shop-color">颜色</span></div>
-          <div v-for="(shop_tyoe,index) in shopType" :key="index" @click="selectType(index)" class="shop_tyoe">
-            <span class="shop-size " :class="{shopping_type:highlight===index}">{{shop_tyoe.type}}</span>
+          <div v-for="(shop_tyoe,index) in shopMessage.colorType " :key="index" @click="selectType(index)" class="shop_tyoe">
+            <span class="shop-size " :class="{shopping_type:highlight===index}">{{shop_tyoe.categoryName}}</span>
           </div>
         </div>
-        <div class="shop-size-box">
-          <span class="shop-color">尺寸</span>
-          <span class="shop-size-active">1L</span>
+        <!--商品的尺寸-->
+        <div class="shop-size-box" v-if="sizeS">
+          <div><span class="shop-color">尺寸</span></div>
+          <div v-for="(shop_tyoe,index) in shopMessage.sizeType" :key="index" @click="selectType(index)" class="shop_tyoe">
+            <span class="shop-size " :class="{shopping_type:highlight===index}">{{shop_tyoe.categoryName}}</span>
+          </div>
         </div>
+      <!--商品的数量-->
         <div class="shop-size-box">
           <span class="shop-color">数量</span>
           <span><van-stepper v-model="count"/></span>
@@ -79,22 +83,13 @@
   export default {
     data() {
       return {
-        shopMessage: [],
+        shopMessage: {},
         value: 0,
         count: 0,
+        sizeS:false,
+        colorS:false,
         highlight:0,
         mobileID: '',
-        shopType: [
-          {
-            type: '美孚旋风4T ',
-          },
-          {
-            type: '美孚小霸王2T',
-          },
-          {
-            type: '美孚大霸王8T',
-          },
-        ],
       }
     },
     components: {
@@ -113,7 +108,21 @@
       var getGoodBy = 'home/getGoodById?id=' + this.$route.params.id;
       this.$axios.get(getGoodBy)
         .then(res => {
-          this.shopMessage = res.data.data;
+         var shopMessage = res.data.data;
+          let colorType=[];
+          let sizeType=[];
+          shopMessage.categorys.forEach(e => {
+            if (e.type == 1) {
+              colorType.push(e)
+            } else {
+              sizeType.push(e)
+            }
+          });
+          shopMessage.colorType=colorType;
+          shopMessage.sizeType=sizeType;
+           this.shopMessage=shopMessage;
+         this.colorS=this.__colorSz();
+         this.sizeS=this. __sizeSz();
         });
       if (user) {
         this.mobileID = JSON.parse(user).id;
@@ -179,8 +188,23 @@
        */
       selectType(id) {
        this.highlight=id;
-      }
+      },
+      __colorSz(){
+        if(!this.shopMessage.colorType){
+          return false
+        }
+        var arr=this.shopMessage.colorType.filter(e=>e.type==1);
+        return arr.categoryName=null||arr.length==0?false:true;
+      },
+      __sizeSz(){
+        if(!this.shopMessage.sizeType){
+          return false
+        }
+        var arr=this.shopMessage.sizeType.filter(e=>e.type==2);
+        return arr.categoryName=null||arr.length==0?false:true;
+      },
     },
+
   }
 </script>
 

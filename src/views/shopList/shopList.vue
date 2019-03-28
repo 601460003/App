@@ -5,7 +5,9 @@
     <div class="shop-main">
       <div class="shopMenu">
         <ul>
-          <li v-for="list in nav" :class="{active:isActive==list.type}" @click="addCLassFUc(list.type)">{{list.name}}
+          <li v-for="list in nav"
+              :class="`classification-text ${isActive==list.type && 'active'}`"
+              @click="addCLassFUc(list.type)">{{list.name}}
           </li>
         </ul>
       </div>
@@ -13,13 +15,13 @@
       <div class="shopGoods">
         <div class="shopGoods-Menu">
           <!--标题图片-->
-          <img style="padding:8px 8px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551360999932&di=00c95a87b6850940982986135bf0d195&imgtype=0&src=http%3A%2F%2Fp4.ssl.cdn.btime.com%2Ft0179296d244cd01a3b.jpg%3Fsize%3D564x266" width="95% /">
+          <img  src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1f1uj1ewpj30c00520t4.jpg" width="100% /">
           <!--商品分类-->
-          <ul>
+          <ul class="brand-list">
             <li v-for="items in navShop" v-if="type===items.type">
               <div class="shopGoods-Menu-one">
-                <img :src="items.img"/>
-                <span>{{items.brandName}}</span>
+                <img :src="items.img" class="brand"/>
+                <div class="brand-text">{{items.brandName}}</div>
               </div>
             </li>
           </ul>
@@ -76,35 +78,50 @@
     height: 600px;
     font-size: 15px;
     line-height: 35px;
-    margin-top: 20px;
+    padding-top: 60px;
     color: #333;
     flex: 1;
     text-align: center;
+    background-color: #f5f5f5;
   }
-
+  .classification-text{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
   .active {
-    color: #f44;
-    font-size: 17px;
+    background-color: #fff;
   }
 
   .shopGoods {
     flex: 4;
-    border-left: 1px solid #999;
   }
 
 
-  .shopGoods-Menu li {
-    display: inline-block;
-    padding: 23px;
+  /*.shopGoods-Menu li {*/
+    /*display: inline-block;*/
+    /*padding: 30px;*/
+    /*text-align: center;*/
+    /*font-size: 14px;*/
+  /*}*/
+  .shopGoods-Menu-one{
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  .brand-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     text-align: center;
-    font-size: 14px;
+    margin-top: 20px;
   }
-  .shopGoods-Menu-one img {
-    width: 50px;
-    height: 50px;
-    display: block;
-    /*border-radius: 50%;*/
-    padding-bottom: 10px;
+  .brand{
+    width: 60px;
+    height: 20px;
+  }
+  .brand-text{
+    padding-top: 5px;
+    font-size: 16px;
   }
 
 </style>

@@ -4,11 +4,9 @@
   <span class="icon iconfont iconfanhui" slot="left" @click="shopMsg"></span>
 </v-header>
   <div class="login">
-    <div class="login-div2"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2692288157,3206351884&fm=26&gp=0.jpg"/></div>
-    <div class="login-div login-active">微信登录</div>
-    <div class="login-div">邮箱账号登录</div>
+    <div class="login-div2"><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1f1sfb86pj30ao06z3yq.jpg"/></div>
     <div class="login-div" @click="phone_enter">手机号码登录</div>
-    <div class="login-div1" @click="phone_login">手机快捷注册 ></div>
+    <div class="login-div1" @click="phone_login">手机快捷注册 </div>
   </div>
 </div>
 </template>
@@ -47,14 +45,14 @@
     top: 15px;
   }
   .login{
-    margin: 80px 20px;
+    margin: 40px 8px 60px 8px;
   }
   .login-div{
     width: 100%;
     text-align: center;
     font-size: 15px;
     margin-top: 15px ;
-    border: 1px solid #BB3343;
+    border: 0.5px solid #BB3343;
     color: #BB3343;
     padding: 10px 0;
   }
@@ -66,8 +64,8 @@
   }
   .login-div2 img{
     width: 100%;
-    height: 150px;
-    border-radius: 10px;
+    height: 180px;
+    /*border-radius: 10px;*/
   }
   .login-active{
     background: #BB3343;

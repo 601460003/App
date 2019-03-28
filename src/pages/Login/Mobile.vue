@@ -13,20 +13,26 @@
         <!--maxlength最大长度，利用计算属性来绑定黑色样式-->
         <input type="text" maxlength="11" placeholder="请输入手机号" v-model="mobile">
         <!--button属性disabled-->
-        <input type="text" maxlength="4" placeholder="请输入短信验证码" v-model="color">
+        <!--<input type="text" maxlength="4" placeholder="请输入短信验证码" v-model="color">-->
 
         <!--判断登录的方式-->
-        <input v-if="selectLogin==='loginPath'" type="text" maxlength="11" placeholder="请输入密码">
-        <div v-else="selectLogin==='enterPath'" class="code_login">
-          <span class="code">使用密码验证登录</span>
-        </div>
+        <input maxlength="11" placeholder="请输入密码" type="password" v-model="password" >
+        <!--<div v-else="selectLogin==='enterPath'" class="code_login">-->
+          <!--<span class="code">使用密码验证登录</span>-->
+        <!--</div>-->
             <!--判断按钮的显示方式-->
-        <button v-if="selectLogin==='loginPath'" class="mobile_button" @click="loginMobile" :class="{login_color:loginColor}" :disabled="!rightMobile">注册</button>
-        <button v-else="selectLogin==='enterPath'" class="mobile_button" style="margin-top: 5px" @click="enterMobile" :disabled="!rightMobile" >登录</button>
+        <button v-if="selectLogin==='loginPath'"
+                class="mobile_button"
+                @click="loginMobile"
+                :class="{login_color:loginColor}">注册
+        </button>
+        <button v-else="selectLogin==='enterPath'"
+                class="mobile_button"
+                @click="enterMobile" >登录</button>
 
       </div>
-      <button v-show="sendAuthCode" :disabled="!rightMobile" class="mobile-get" :class="{right_mobile:rightMobile}" @click.prevent="getCode">获取验证码</button>
-      <button v-show="!sendAuthCode" class="mobile-get right_mobiles ">{{computedTime}}秒</button>
+      <!--<button v-show="sendAuthCode" :disabled="!rightMobile" class="mobile-get" :class="{right_mobile:rightMobile}" @click.prevent="getCode">获取验证码</button>-->
+      <!--<button v-show="!sendAuthCode" class="mobile-get right_mobiles ">{{computedTime}}秒</button>-->
     </div>
   </div>
 </template>
@@ -40,6 +46,7 @@
       return {
         mobile: '',
         computedTime:0,
+        password:'',
         sendAuthCode:true,
         color:'',
         selectLogin:''
@@ -65,7 +72,18 @@
        * post带对象获取请求
        */
       loginMobile() {
-        var p = {mobile: this.mobile};
+        var p = {
+          mobile: this.mobile,
+          password:this.password
+        };
+        if(!p.mobile){
+          this.$toast('请输入手机号码');
+          return
+        }
+        if(!p.password){
+          this.$toast('请输入密码');
+          return
+        }
 
         this.$axios.post('me/addMember', p)
           .then(res => {
@@ -73,8 +91,7 @@
               this.$toast('注册成功');
               localStorage.setItem("user", JSON.stringify(res.data.data));
               this.$router.push({path:'/me'})
-            }
-            else {
+            } else {
               //重新注册
               this.$toast('用户已存在，重新注册');
             }
@@ -84,20 +101,8 @@
        * 获取信息进行登录
        */
       enterMobile() {
-        this.$axios.get('me/getMember?mobile='+this.mobile)
+        this.$axios.get('me/getMember?mobile='+this.mobile+'&password='+this.password)
           .then(res => {
-            // 修复bug当用户不存在时
-         if(res.data.data==null){
-          this.$toast('用户不存在')
-         }else {
-           if(res.data.code==100){
-             if(this.mobile=res.data.data.mobile){
-               this.$toast('登录成功');
-               localStorage.setItem("user", JSON.stringify(res.data.data));
-               this.$router.push({path:'/me'})
-             }
-           }
-          }
           })
       },
       /**
@@ -109,7 +114,7 @@
           this.computedTime = 60;
           let time = setInterval(() => {
             this.computedTime--;
-            if (this.computedTime == 0) {
+       if(this.computedTime<=0){
               clearInterval(time);
               this.sendAuthCode = true
             }
@@ -178,7 +183,7 @@
   .mobile_button{
     font-size: 14px;
     color: #fff;
-    margin-top: 20px;
+    margin-top: 30px;
     border-radius: 5px;
     border: 1px solid #BB3343;
     background:#BB3343 ;

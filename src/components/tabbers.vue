@@ -73,14 +73,14 @@
                 dot: false,
                 info: ''
               },
-              {
-                name: '分类',
-                path: '/shoplist',
-                pathName: 'shoplist',
-                icon: 'orders-o',
-                dot: false,
-                info: ''
-              },
+              // {
+              //   name: '分类',
+              //   path: '/shoplist',
+              //   pathName: 'shoplist',
+              //   icon: 'orders-o',
+              //   dot: false,
+              //   info: ''
+              // },
               {
                 name: '购物车',
                 path: '/shopcar',

@@ -56,14 +56,14 @@ export default new Router({
         showFooter:true
       }
     },
-    {
-      path: '/shoplist',
-      name: 'shoplist',
-      component: () => import("../views/shopList/shopList"),
-      meta:{
-        showFooter:true
-      }
-    },
+    // {
+    //   path: '/shoplist',
+    //   name: 'shoplist',
+    //   component: () => import("../views/shopList/shopList"),
+    //   meta:{
+    //     showFooter:true
+    //   }
+    // },
     {
       path: '/shopmsg/:id',
       name: 'shopmsg',
