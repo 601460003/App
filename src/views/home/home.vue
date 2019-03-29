@@ -207,7 +207,6 @@ import header from '@/components/header'
   /*}*/
   .main-shop{
     margin-top: 5px;
-    padding-left: 3px;
   }
 
   .shop-left {

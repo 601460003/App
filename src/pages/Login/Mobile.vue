@@ -22,13 +22,15 @@
         <!--</div>-->
             <!--判断按钮的显示方式-->
         <button v-if="selectLogin==='loginPath'"
-                class="mobile_button"
+                class="mobile_button login_color"
                 @click="loginMobile"
                 :class="{login_color:loginColor}">注册
         </button>
         <button v-else="selectLogin==='enterPath'"
-                class="mobile_button"
-                @click="enterMobile" >登录</button>
+                class="login_color mobile_button"
+                @click="enterMobile"
+                :class="{login_color:rightMobile}"
+                >登录</button>
 
       </div>
       <!--<button v-show="sendAuthCode" :disabled="!rightMobile" class="mobile-get" :class="{right_mobile:rightMobile}" @click.prevent="getCode">获取验证码</button>-->
@@ -103,6 +105,18 @@
       enterMobile() {
         this.$axios.get('me/getMember?mobile='+this.mobile+'&password='+this.password)
           .then(res => {
+            // 修复bug当用户不存在时
+            if(res.data.data==null){
+              this.$toast('用户不存在')
+            }else {
+              if(res.data.code==100){
+                if(this.mobile=res.data.data.mobile){
+                  this.$toast('登录成功');
+                  localStorage.setItem("user", JSON.stringify(res.data.data));
+                  this.$router.push({path:'/me'})
+                }
+              }
+            }
           })
       },
       /**
@@ -218,5 +232,6 @@
     text-align: right;
     padding-top: 10px;
   }
+
 
 </style>

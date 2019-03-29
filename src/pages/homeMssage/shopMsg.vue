@@ -31,15 +31,15 @@
       <div style="margin-bottom: 40px">
         <div class="shop-size-box" v-if="colorS">
           <div><span class="shop-color">颜色</span></div>
-          <div v-for="(shop_tyoe,index) in shopMessage.colorType " :key="index" @click="selectType(index)" class="shop_tyoe">
-            <span class="shop-size " :class="{shopping_type:highlight===index}">{{shop_tyoe.categoryName}}</span>
+          <div v-for="(shop_tyoe,indexs) in shopMessage.colorType " :key="indexs" @click="colortType(indexs)" class="shop_tyoe">
+            <span class="shop-size " :class="{shopping_type:highlight===indexs}">{{shop_tyoe.categoryName}}</span>
           </div>
         </div>
         <!--商品的尺寸-->
         <div class="shop-size-box" v-if="sizeS">
           <div><span class="shop-color">尺寸</span></div>
           <div v-for="(shop_tyoe,index) in shopMessage.sizeType" :key="index" @click="selectType(index)" class="shop_tyoe">
-            <span class="shop-size " :class="{shopping_type:highlight===index}">{{shop_tyoe.categoryName}}</span>
+            <span class="shop-size " :class="{shopping_type:highlights===index}">{{shop_tyoe.categoryName}}</span>
           </div>
         </div>
       <!--商品的数量-->
@@ -90,6 +90,7 @@
         colorS:false,
         highlight:0,
         mobileID: '',
+        highlights:0
       }
     },
     components: {
@@ -187,7 +188,10 @@
        * 点击商品类型为高亮
        */
       selectType(id) {
-       this.highlight=id;
+       this.highlights=id;
+      },
+      colortType(id){
+        this.highlight=id;
       },
       __colorSz(){
         if(!this.shopMessage.colorType){
