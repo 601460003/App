@@ -52,8 +52,8 @@
     text-align: center;
     font-size: 15px;
     margin-top: 15px ;
-    border: 0.5px solid #BB3343;
-    color: #BB3343;
+    border: 1px solid #1989fa;
+    color: #333;
     padding: 10px 0;
   }
   .login-div1{
