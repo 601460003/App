@@ -53,8 +53,10 @@
     font-size: 15px;
     margin-top: 15px ;
     border: 1px solid #1989fa;
-    color: #333;
     padding: 10px 0;
+    background: #1989fa;
+    color: #ffff;
+    border-radius: 3px;
   }
   .login-div1{
     text-align: center;
