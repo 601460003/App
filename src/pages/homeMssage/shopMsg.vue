@@ -48,7 +48,6 @@
           <span><van-stepper v-model="count"/></span>
         </div>
       </div>
-      <spilt></spilt>
       <!--立即购买组件-->
       <div>
         <van-goods-action class="shopping-shopping">
@@ -237,8 +236,9 @@
   }
 
   .shopping-img img {
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 220px;
+    padding-top: 20px;
   }
 
   .shopping-content {

@@ -20,40 +20,40 @@
     <!--购物车商品-->
     <div>
       <div style="background: white;">
-        <div style="position: relative;padding-top: 10px;" v-for="(shops,index) in shoppingMiss" :key="index" >
+        <div class="shop-containter" v-for="(shops,index) in shoppingMiss" :key="index" >
+          <!--商品前面的圈圈-->
+          <div class="icon-box">
+            <div class="footer-button icon-button" @click="onceChecke(shops)">
+              <i class="icon iconfont iconxuanze-yixuan " v-if="shops.isChecked"></i>
+            </div>
+          </div>
           <!--商品图片-->
           <div class="shop_img" @click="toShopMsg(shops.goodId)">
             <img :src="shops.img"/>
           </div>
           <!--商品内容-->
-          <div style="margin-top: 25px" @click="toShopMsg(shops.goodId)">
-            <p class="shops_describe">{{shops.describe}}</p>
-          </div>
-          <!--商品价格-->
-          <p style="padding-bottom: 10px">
-            <mark>{{shops.price|moneyFrom(shops.price)}}</mark>
-            <span class="shops_count"><van-stepper v-model="shops.amount"/></span>
-          </p>
-          <div>
-            <!--商品前面的圈圈-->
-            <div class="footer-button icon-button" @click="onceChecke(shops)">
-              <i class="icon iconfont iconxuanze-yixuan " v-if="shops.isChecked"></i>
-            </div>
-          </div>
-          <spilt></spilt>
-        </div>
-        <!--底部下单板块-->
-        <van-submit-bar button-text="下单" style="bottom: 55px;margin-left: 3px" @submit="buyShopCar()" v-if="this.shoppingMiss.length>0">
-          <div class="footer-button" @click="allCheckeds(allChecked)">
-            <i class="icon iconfont iconxuanze-yixuan" v-show="allChecked"></i>
-          </div>
-          <!--总价-->
-          <div class="shop-sum">
-            <span class="shop-sum-money">{{totalMoney|moneyFrom(totalMoney)}}</span>
-          </div>
-        </van-submit-bar>
-
+         <div class="shop_price">
+           <div style="margin-top: 25px" @click="toShopMsg(shops.goodId)">
+             <p class="shops_describe">{{shops.describe}}</p>
+           </div>
+           <!--商品价格-->
+             <p id="box">
+             <mark>{{shops.price|moneyFrom(shops.price)}}</mark>
+             <span class="shops_count"><van-stepper v-model="shops.amount"/></span>
+           </p>
+         </div>
+    </div>
       </div>
+      <!--底部下单板块-->
+      <van-submit-bar button-text="下单" style="bottom: 55px;margin-left: 3px" @submit="buyShopCar()" v-if="this.shoppingMiss.length>0">
+        <div class="footer-button" @click="allCheckeds(allChecked)">
+          <i class="icon iconfont iconxuanze-yixuan" v-show="allChecked"></i>
+        </div>
+        <!--总价-->
+        <div class="shop-sum">
+          <span class="shop-sum-money">{{totalMoney|moneyFrom(totalMoney)}}</span>
+        </div>
+      </van-submit-bar>
     </div>
   </div>
 </template>
@@ -224,6 +224,16 @@
 </script>
 
 <style scoped>
+  #box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .shop-containter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .imgs-title {
     font-size: 12px;
     color: #fff;
@@ -231,33 +241,32 @@
     display: flex;
     justify-content: space-around;
     padding: 8px;
-
+  }
+  .shop-containter{
+    border-bottom: 10px solid #f3f5f7 ;
   }
 
-  .imgs-title span {
-    /*background: url("../../assets/radio button.png") no-repeat;*/
-    background-size: 15px;
-    padding-left: 20px;
+  .icon-box {
+    flex: 1;
   }
-
   .footer-button {
     width: 20px;
     height: 20px;
     border: 1px solid #999;
     border-radius: 18px;
-    margin-left: 5px
+    margin-left: 5px;
   }
 
   .icon {
-    font-size: 21px;
+    font-size: 22px;
     color: #f44;
-    margin-top: -1px;
-    padding-right: 1px;
+    margin-top: -2px;
+   margin-left:-1px;
     display: inline-block
   }
 
   .icon-button {
-    position: absolute;
+    /*position: absolute;*/
     top: 45px;
   }
 
@@ -283,22 +292,21 @@
     top: 12px;
   }
 
+  .shop_img {
+    flex: 1;
+  }
   .shop_img img {
     width: 100px;
     height: 92px;
-    vertical-align: middle;
     padding-right: 10px;
-    margin-left: 35px;
-    float: left;
   }
 
   .hidden {
     display: none;
   }
   .shops_count{
-    position: absolute;
-    top: 73px;
-    right: 12px;
+   margin-right: 10px;
+    margin-top: 10px;
   }
 
   .shops_describe{
