@@ -156,25 +156,29 @@
           amount: this.count,
           sessionId: this.mobileID
         };
-        this.$axios.post('home/addCar', shopping)
-          .then(res => {
-            if (res.data.code == 100) {
+       if(!this.mobileID){
+         this.$toast('请登录');
+       }else {
+         this.$axios.post('home/addCar', shopping)
+           .then(res => {
+             if (res.data.code == 100) {
 
-              this.$toast('添加成功');
-              /**
-               * 添加成功后再次获取商品数量的请求
-               */
-              this.$axios.get('home/getCar?sessionId=' + this.mobileID)
-                .then(res => {
-                  console.log(res)
-                  if (res.data.code == 100) {
-                    if (res.data.data) {
-                      this.value = res.data.data.total
-                    }
-                  }
-                })
-              }
+               this.$toast('添加成功');
+               /**
+                * 添加成功后再次获取商品数量的请求
+                */
+               this.$axios.get('home/getCar?sessionId=' + this.mobileID)
+                 .then(res => {
+                   console.log(res)
+                   if (res.data.code == 100) {
+                     if (res.data.data) {
+                       this.value = res.data.data.total
+                     }
+                   }
+                 })
+             }
            });
+       }
          },
       /**
        *
@@ -309,7 +313,7 @@
   }
 
   .shop-size-box {
-    margin: 17px 5px;
+    margin: 15px 5px;
     position: relative;
     display: flex;
     flex-wrap: wrap;
