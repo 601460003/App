@@ -236,8 +236,8 @@
   }
 
   .shopping-img img {
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 180px;
     padding-top: 20px;
   }
 

@@ -233,6 +233,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 10px solid #f3f5f7 ;
   }
   .imgs-title {
     font-size: 12px;
@@ -242,9 +243,7 @@
     justify-content: space-around;
     padding: 8px;
   }
-  .shop-containter{
-    border-bottom: 10px solid #f3f5f7 ;
-  }
+
 
   .icon-box {
     flex: 1;
@@ -299,7 +298,9 @@
     width: 100px;
     height: 92px;
     padding-right: 10px;
+    padding-left: 10px;
   }
+
 
   .hidden {
     display: none;

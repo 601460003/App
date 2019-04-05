@@ -82,7 +82,6 @@
         <!--待评论-->
         <van-tab title="待评价">
           <div class="order_appraise">
-            <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3388954924,2759328804&fm=26&gp=0.jpg"/>
             <p>评价都写完了，试试去分享宝贝吧～</p>
           </div>
         </van-tab>
